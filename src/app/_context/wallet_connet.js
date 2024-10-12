@@ -2,15 +2,15 @@
 
 import { createAppKit } from '@reown/appkit/react'
 import { EthersAdapter } from '@reown/appkit-adapter-ethers'
-import { mainnet, arbitrum } from '@reown/appkit/networks'
+import { mainnet, arbitrum, sepolia } from '@reown/appkit/networks'
 
 // 1. Get projectId at https://cloud.reown.com
-const projectId = 'YOUR_PROJECT_ID'
+const projectId = '911dd5c62b0c852a3ec5b2f35f6c195c'
 
 // 2. Create a metadata object
 const metadata = {
-  name: 'My Website',
-  description: 'My Website description',
+  name: '0x cairo',
+  description: 'integration between web2 and web3',
   url: 'https://mywebsite.com', // origin must match your domain & subdomain
   icons: ['https://avatars.mywebsite.com/']
 }
@@ -19,15 +19,15 @@ const metadata = {
 createAppKit({
   adapters: [new EthersAdapter()],
   metadata,
-  networks: [mainnet, arbitrum],
+  networks: [mainnet, sepolia],
   projectId,
   features: {
     analytics: true // Optional - defaults to your Cloud configuration
   }
 })
 
-export function AppKit() {
+export function AppKit({children}) {
   return (
-    <YourApp /> // Ensure you have configured the <w3m-button> inside
+    <children /> // Ensure you have configured the <w3m-button> inside
   )
 }
