@@ -14,12 +14,18 @@ const metadata = {
   url: 'https://mywebsite.com', // origin must match your domain & subdomain
   icons: ['https://avatars.mywebsite.com/']
 }
-
+const sepoliaNet = {
+  chainId: 11155111,
+  name: "Sepolia",
+  currency: "ETH",
+  explorerUrl: "https://sepolia.etherscan.io",
+  rpcUrl: "https://sepolia.infura.io/v3/a338ecde471748a9a7bdddc5537fdafb",
+};
 // 3. Create the AppKit instance
 createAppKit({
   adapters: [new EthersAdapter()],
   metadata,
-  networks: [mainnet, sepolia],
+  networks: [mainnet, sepoliaNet],
   projectId,
   features: {
     analytics: true // Optional - defaults to your Cloud configuration
@@ -28,6 +34,6 @@ createAppKit({
 
 export function AppKit({children}) {
   return (
-    <children /> // Ensure you have configured the <w3m-button> inside
+    children  // Ensure you have configured the <w3m-button> inside
   )
 }
