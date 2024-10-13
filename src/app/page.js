@@ -1,12 +1,11 @@
-import WalletConnectButton from "./_components/wallet_connect_button";
+import BlockchainData from "@/components/BlockchainData";
+import WalletConnectCard from "@/components/WallectConnectCard";
 
 export default function Home() {
   return (
-<>
-<h1>Welcome 0xCairo</h1>
-
-<WalletConnectButton/>
-
-</>    
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black p-10 flex  flex-col justify-center items-center">
+      <WalletConnectCard />
+      <BlockchainData />
+    </div>
   );
 }

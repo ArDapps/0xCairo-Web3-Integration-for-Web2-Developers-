@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import { AppKit } from "./_context/wallet_connet";
+import { AppKit } from "@/context/web3Model";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,8 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <AppKit> {children}</AppKit>
-       
+        <AppKit> {children}</AppKit>
       </body>
     </html>
   );

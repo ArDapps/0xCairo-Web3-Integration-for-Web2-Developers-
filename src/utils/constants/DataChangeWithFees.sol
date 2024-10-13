@@ -10,7 +10,6 @@ contract DataChangeWithFee {
     }
 
     Data public data; // Publicly accessible data
-    uint256 public constant initialFee = 0.0001 ether; // Minimum initial fee
 
     address public admin; // Address of the contract deployer (admin)
 
@@ -37,10 +36,9 @@ contract DataChangeWithFee {
     // Function to change the data, requires payment of a higher fee than the last one
     function changeData(string memory newValue) public payable {
         // Check the required fee: 0.0001 ETH for the first change, more than the last fee after that
-        uint256 requiredFee = data.feePaid == 0 ? initialFee : data.feePaid;
 
         // Ensure that the new fee is strictly greater than the previous fee
-        require(msg.value > requiredFee, "Insufficient fee to change the data.");
+        require(msg.value > data.feePaid, "Insufficient fee to change the data.");
 
         // Update the data
         data.value = newValue;
