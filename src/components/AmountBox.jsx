@@ -11,7 +11,9 @@ export default function AmountBox({ amount, description }) {
         </div>
         {/* Content */}
         <div>
-          <h2 className="text-2xl font-bold text-white">{amount}</h2>
+          <h2 className="text-2xl font-bold text-white glow-animation">
+            {amount}
+          </h2>
           <p className="text-sm text-gray-400">{description}</p>
         </div>
       </div>

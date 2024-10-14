@@ -63,7 +63,7 @@ export default function ChangeDataFormInputs({ lastData }) {
           setNewValue("");
           setEthAmount("");
           // Refresh the page after the transaction is successful
-          router.refresh(); // This will reload the current page
+          router.push("/"); // This will reload the current page
         }
       } catch (error) {
         console.error("Error changing data:", error);

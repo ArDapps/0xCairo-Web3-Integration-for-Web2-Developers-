@@ -7,6 +7,7 @@ import { useAppKitProvider } from "@reown/appkit/react";
 import ChangeDataFormInputs from "./ChangeDataFormInputs";
 import { interactWithContract } from "@/utils/interactWithContract";
 import { ethers } from "ethers";
+import { EventTableData } from "./EventTableData";
 
 export default function BlockchainData() {
   const { walletProvider } = useAppKitProvider("eip155"); // Wallet provider from Reown
@@ -66,6 +67,7 @@ export default function BlockchainData() {
           description={`Last Changed By: ${blockData.changer}`} // Show last changer's address
         />
       </div>
+      <EventTableData />
     </div>
   );
 }

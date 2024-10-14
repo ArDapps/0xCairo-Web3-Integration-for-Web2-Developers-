@@ -19,22 +19,30 @@ export default function WalletConnectCard() {
   const [NetworkId, setNetworkId] = useState(null); // Chain ID state
 
   // Fetch the balance and chain ID when the wallet is connected
+  // Fetch the balance and chain ID when the wallet is connected
   const fetchWalletDetails = async () => {
     if (isConnected && walletProvider) {
       try {
         const provider = new BrowserProvider(walletProvider);
+
+        // Check if provider is valid
+        if (!provider) {
+          throw new Error("Provider is missing or invalid");
+        }
 
         // Fetch the balance
         const balanceInWei = await provider.getBalance(address);
         const balanceInEth = formatEther(balanceInWei);
         setBalance(balanceInEth);
 
-        // Fetch the chain ID
+        // Fetch the network details
         const network = await provider.getNetwork();
-        setNetworkId(network.name); // Store the chain ID
+        setNetworkId(network.name); // Store the network name (or use chainId if preferred)
       } catch (error) {
         console.error("Error fetching wallet details:", error);
       }
+    } else {
+      console.warn("Wallet is not connected or provider is missing");
     }
   };
 

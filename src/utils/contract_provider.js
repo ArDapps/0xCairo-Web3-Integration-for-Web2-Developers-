@@ -19,9 +19,8 @@ export const contractProvider = async (signer) => {
 
   try {
     // Attempt to fetch the data from the contract
-    const data = await contract.data();
-    console.log(data, "data");
-    return { contract, data }; // Return the contract and data
+  
+    return { contract }; // Return the contract and data
   } catch (error) {
     console.error("Error fetching contract data:", error);
     return { error: error.message }; // Return the error message

@@ -11,7 +11,7 @@ export default function DataBox({ title, description }) {
         </div>
         {/* Content */}
         <div>
-          <h2 className="text-xl font-bold text-white">{title}</h2>
+          <h2 className="text-xl font-bold text-white ">{title}</h2>
           <p className="text-sm text-gray-400">{description}</p>
         </div>
       </div>
