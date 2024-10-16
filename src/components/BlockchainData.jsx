@@ -3,15 +3,10 @@
 import React, { useEffect, useState } from "react";
 import DataBox from "./DataBox";
 import AmountBox from "./AmountBox";
-import { useAppKitProvider } from "@reown/appkit/react";
-import ChangeDataFormInputs from "./ChangeDataFormInputs";
-import { interactWithContract } from "@/utils/interactWithContract";
-import { ethers } from "ethers";
 import { EventTableData } from "./EventTableData";
+import ChangeDataFormInputs from "./ChangeDataFormInputs";
 
 export default function BlockchainData() {
-  const { walletProvider } = useAppKitProvider("eip155"); // Wallet provider from Reown
-
   // Create a state object to store all data
   const [blockData, setBlockData] = useState({
     value: "Sample Data Value",
