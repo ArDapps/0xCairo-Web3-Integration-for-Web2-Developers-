@@ -14,33 +14,14 @@ export default function BlockchainData() {
 
   // Create a state object to store all data
   const [blockData, setBlockData] = useState({
-    value: "", // The data stored in the contract
-    changer: "", // The address of the last person who changed the data
-    feePaid: "", // The fee paid for the last change
+    value: "Sample Data Value",
+    changer: "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4",
+    feePaid: "0.05", // ETH// The fee paid for the last change
   });
 
   // Function to fetch data from the contract
 
   // Example usage in a component or function
-  const fetchData = async () => {
-    const { data, error } = await interactWithContract("data", []);
-    setBlockData({
-      value: data.value,
-      changer: data.changer,
-      feePaid: ethers.formatEther(data.feePaid), // Format fee from wei to ETH
-    });
-
-    if (error) {
-      console.error("Error fetching contract data:", error);
-    } else {
-      console.log("Contract data:", data);
-    }
-  };
-
-  // Fetch data when the component is mounted and walletProvider is available
-  useEffect(() => {
-    fetchData(); // Fetch the data when walletProvider is available
-  }, []);
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-8">
