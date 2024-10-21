@@ -1,49 +1,44 @@
-import { contractProvider } from "@/utils/contract_provider";
-import { useAppKitAccount } from "@reown/appkit/react";
-import { ethers, formatUnits } from "ethers";
-import React, { useEffect, useState } from "react";
+// EventTableData.jsx
+"use client";
+
+import React from "react";
 
 export const EventTableData = () => {
-  const { address, isConnected } = useAppKitAccount();
-  const [eventData, setEventData] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const eventsPerPage = 3; // Number of events per page
+  // Static event data
+  const eventData = [
+    {
+      changer: "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4",
+      newValue: "New Data Value 1",
+      feePaid: "0.05",
+      blockNumber: 123456,
+    },
+    {
+      changer: "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cA2",
+      newValue: "New Data Value 2",
+      feePaid: "0.03",
+      blockNumber: 123457,
+    },
+    {
+      changer: "0x4B0897b0513fdc7C541B6d9D7E929C4e5364D2dB",
+      newValue: "New Data Value 3",
+      feePaid: "0.07",
+      blockNumber: 123458,
+    },
+  ];
 
-  const getChangeDataEvents = async () => {
-    try {
-      const { contract } = await contractProvider();
-      const dataChangedFilter = contract.filters.DataChanged();
-      const eventData = await contract.queryFilter(dataChangedFilter);
-      const allEvents = [...eventData].sort(
-        (a, b) => a.blockNumber - b.blockNumber
-      );
-      setEventData(allEvents);
-    } catch (error) {
-      console.error("Error fetching dataChangedFilter events:", error);
-      setErrorMessage("Failed to fetch dataChangedFilter events.");
-    }
-  };
-
-  useEffect(() => {
-    getChangeDataEvents();
-  }, []);
-
-  // Calculate the index range for current page
-  const indexOfLastEvent = currentPage * eventsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = eventData.slice(indexOfFirstEvent, indexOfLastEvent); // Events for current page
-
-  // Calculate total pages
+  // Pagination variables (optional, since data is static and small)
+  const currentPage = 1;
+  const eventsPerPage = 3;
   const totalPages = Math.ceil(eventData.length / eventsPerPage);
 
-  // Handle page change
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Slice the static data for pagination (optional)
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+  const currentEvents = eventData.slice(indexOfFirstEvent, indexOfLastEvent);
 
   return (
     <div className="p-6 bg-gray-900 text-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Data Change Events</h2>
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       <table className="min-w-full text-sm bg-gray-800 rounded-md">
         <thead>
           <tr className="bg-gray-700 text-gray-200">
@@ -62,11 +57,9 @@ export const EventTableData = () => {
                   index % 2 === 1 ? "bg-gray-700" : "bg-gray-800"
                 } hover:bg-gray-600 transition-colors duration-200`}
               >
-                <td className="py-3 px-6">{event.args.changer}</td>
-                <td className="py-3 px-6">{event.args.newValue}</td>
-                <td className="py-3 px-6">
-                  {formatUnits(event.args.feePaid, 18)} ETH
-                </td>
+                <td className="py-3 px-6">{event.changer}</td>
+                <td className="py-3 px-6">{event.newValue}</td>
+                <td className="py-3 px-6">{event.feePaid} ETH</td>
                 <td className="py-3 px-6">{event.blockNumber}</td>
               </tr>
             ))
@@ -80,11 +73,10 @@ export const EventTableData = () => {
         </tbody>
       </table>
 
-      {/* Pagination Controls */}
+      {/* Pagination Controls (Optional, since data is static and limited) */}
       {eventData.length > 0 && (
         <div className="mt-4 flex justify-center space-x-2">
           <button
-            onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
             className="px-3 py-1 bg-gray-700 text-white rounded disabled:bg-gray-500"
           >
@@ -93,7 +85,6 @@ export const EventTableData = () => {
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
-              onClick={() => paginate(index + 1)}
               className={`px-3 py-1 rounded ${
                 currentPage === index + 1
                   ? "bg-blue-500 text-white"
@@ -104,7 +95,6 @@ export const EventTableData = () => {
             </button>
           ))}
           <button
-            onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
             className="px-3 py-1 bg-gray-700 text-white rounded disabled:bg-gray-500"
           >
